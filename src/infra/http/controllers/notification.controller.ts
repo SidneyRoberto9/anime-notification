@@ -3,7 +3,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { SendNotification } from '../../../app/use-cases/send-notification';
 import { CreateNotificationBody } from '../dtos/create-notification-body';
 
-@Controller('notifications')
+@Controller('api/notifications')
 export class NotificationsController {
   constructor(private sendNotification: SendNotification) {}
 
@@ -16,6 +16,7 @@ export class NotificationsController {
       platform,
       platformUrl,
     });
+
     return { notification };
   }
 }
