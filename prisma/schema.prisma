@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Notification {
-  id           String   @id
-  title        String
-  plataform    String
-  plataformUrl String
-  createdAt    DateTime @default(now())
+  id          String   @id
+  title       String
+  platform    String
+  platformUrl String
+  createdAt   DateTime @default(now())
 }
 
 model Chat {

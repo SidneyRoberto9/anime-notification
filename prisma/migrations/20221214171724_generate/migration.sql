@@ -2,8 +2,8 @@
 CREATE TABLE "Notification" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "title" TEXT NOT NULL,
-    "plataform" TEXT NOT NULL,
-    "plataformUrl" TEXT NOT NULL,
+    "platform" TEXT NOT NULL,
+    "platformUrl" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
