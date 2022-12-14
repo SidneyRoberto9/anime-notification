@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Notification {
+  id           String   @id
+  title        String
+  plataform    String
+  plataformUrl String
+  createdAt    DateTime @default(now())
+}
+
+model Chat {
+  id         String @id
+  telegramId String
+  firstName  String
+}
