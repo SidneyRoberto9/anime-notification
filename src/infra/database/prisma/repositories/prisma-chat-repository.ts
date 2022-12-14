@@ -17,4 +17,18 @@ export class PrismaChatRepository implements ChatRepository {
       },
     });
   }
+
+  async findByTelegramId(telegramId: string): Promise<boolean> {
+    const chat = await this.prisma.chat.findFirst({
+      where: {
+        telegramId: telegramId,
+      },
+    });
+
+    return chat == null ? false : true;
+  }
+
+  async findAll(): Promise<any[]> {
+    return await this.prisma.chat.findMany();
+  }
 }

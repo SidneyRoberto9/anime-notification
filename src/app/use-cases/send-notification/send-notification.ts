@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { TelegramService } from '../../../infra/http/telegram/telegram.service';
 
 import { Notification } from '../../entities/Notification/notification';
 import { NotificationRepository } from '../../repositories/notification-repository';
@@ -15,7 +16,10 @@ interface SendNotificationResponse {
 
 @Injectable()
 export class SendNotification {
-  constructor(private notificationRepository: NotificationRepository) {}
+  constructor(
+    private notificationRepository: NotificationRepository,
+    private telegramService: TelegramService,
+  ) {}
 
   async execute(
     request: SendNotificationRequest,
@@ -29,6 +33,8 @@ export class SendNotification {
     });
 
     await this.notificationRepository.create(notification);
+
+    await this.telegramService.sendNotification(title, platform);
 
     return {
       notification,
