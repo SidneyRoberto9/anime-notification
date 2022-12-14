@@ -34,7 +34,7 @@ export class SendNotification {
 
     await this.notificationRepository.create(notification);
 
-    await this.telegramService.sendNotification(title, platform);
+    await this.telegramService.sendNotification(title, platform, platformUrl);
 
     return {
       notification,

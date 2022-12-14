@@ -1,13 +1,16 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpServer, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as TelegramBot from 'node-telegram-bot-api';
 import { Message } from 'node-telegram-bot-api';
-import { Observable } from 'rxjs';
 import { ChatAlreadyExist } from '../../../app/use-cases/chat-already-exist/chat-already-exist';
 import { ListChat } from '../../../app/use-cases/list-chat/list-chat';
 
 import { NewChat } from '../../../app/use-cases/new-chat/new-chat';
-import { welcome, welcomeAlreadyExist } from '../../../helpers/Message.data';
+import {
+  newNotification,
+  welcome,
+  welcomeAlreadyExist,
+} from '../../../helpers/Message.data';
 
 const TOKEN: string = process.env.TELEGRAM_TOKEN as string;
 
@@ -30,11 +33,19 @@ export class TelegramService {
 
     this.bot.onText(/\/start/, (msg: Message) => this.onStartCreateChat(msg));
     this.bot.onText(/\/test (.+)/, (_: Message, match: any) =>
-      this.sendNotification(match[1] as string, 'Better Animes'),
+      this.sendNotification(
+        match[1] as string,
+        'Better Animes',
+        'https://betteranimes.com.br',
+      ),
     );
   }
 
-  sendNotification = async (msg: string, platform: string) => {
+  sendNotification = async (
+    msg: string,
+    platform: string,
+    platformUrl: string,
+  ) => {
     if (!this.platformList.includes(platform)) {
       throw new Error('Platform not Found!!');
     }
@@ -43,11 +54,13 @@ export class TelegramService {
 
     this.findAll(msg).subscribe((response) => {
       const animeData = response.data.data[0];
+      console.log(animeData);
       const imagemUrl = animeData?.images.jpg.image_url;
 
       listChat.forEach((chat) => {
-        this.bot.sendPhoto(chat.telegramId, imagemUrl);
-        this.bot.sendMessage(chat.telegramId, msg);
+        this.bot.sendPhoto(chat.telegramId, imagemUrl, {
+          caption: newNotification(animeData.title, platformUrl),
+        });
       });
     });
   };
