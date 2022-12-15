@@ -9,6 +9,7 @@ import { DatabaseModule } from '../database/database.module';
 import { ChatController } from './controllers/chat.controller';
 import { NotificationsController } from './controllers/notification.controller';
 import { TelegramService } from './telegram/telegram.service';
+import { DiscordService } from './discord/discord.service';
 
 @Module({
   imports: [DatabaseModule, HttpModule],
@@ -19,6 +20,7 @@ import { TelegramService } from './telegram/telegram.service';
     ChatAlreadyExist,
     ListChat,
     TelegramService,
+    DiscordService,
   ],
 })
 export class HttpsModule {}

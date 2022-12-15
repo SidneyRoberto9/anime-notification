@@ -54,7 +54,6 @@ export class TelegramService {
 
     this.findAll(msg).subscribe((response) => {
       const animeData = response.data.data[0];
-      console.log(animeData);
       const imagemUrl = animeData?.images.jpg.image_url;
 
       listChat.forEach((chat) => {
