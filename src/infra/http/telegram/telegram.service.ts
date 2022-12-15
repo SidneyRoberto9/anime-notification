@@ -1,16 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import * as TelegramBot from 'node-telegram-bot-api';
-import { Message } from 'node-telegram-bot-api';
+import TelegramBot, { Message } from 'node-telegram-bot-api';
+
 import { ChatAlreadyExist } from '../../../app/use-cases/chat-already-exist/chat-already-exist';
 import { ListChat } from '../../../app/use-cases/list-chat/list-chat';
-
 import { NewChat } from '../../../app/use-cases/new-chat/new-chat';
-import {
-  newNotification,
-  welcome,
-  welcomeAlreadyExist,
-} from '../../../helpers/Message.data';
+import { newNotification, welcome, welcomeAlreadyExist } from '../../../helpers/Message.data';
 
 const TOKEN: string = process.env.TELEGRAM_TOKEN as string;
 
