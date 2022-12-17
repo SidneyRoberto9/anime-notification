@@ -1,7 +1,6 @@
-import { Module } from '@nestjs/common';
-
-import { DatabaseModule } from './infra/database/database.module';
-import { HttpsModule } from './infra/http/https.module';
+import { DatabaseModule } from "@infra/database/database.module";
+import { HttpsModule } from "@infra/http/https.module";
+import { Module } from "@nestjs/common";
 
 @Module({
   imports: [HttpsModule, DatabaseModule],

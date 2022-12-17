@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { TelegramService } from '../../../infra/http/telegram/telegram.service';
+import { TelegramService } from "@infra/http/telegram/telegram.service";
+import { Injectable } from "@nestjs/common";
 
-import { Notification } from '../../entities/Notification/notification';
-import { NotificationRepository } from '../../repositories/notification-repository';
+import { Notification } from "../../entities/Notification/notification";
+import { NotificationRepository } from "../../repositories/notification-repository";
 
 interface SendNotificationRequest {
   title: string;
   platform: string;
+  description: string;
   platformUrl: string;
 }
 
@@ -24,17 +25,23 @@ export class SendNotification {
   async execute(
     request: SendNotificationRequest,
   ): Promise<SendNotificationResponse> {
-    const { title, platform, platformUrl } = request;
+    const { title, platform, platformUrl, description } = request;
 
     const notification = new Notification({
       title,
       platform,
+      description,
       platformUrl,
     });
 
     await this.notificationRepository.create(notification);
 
-    await this.telegramService.sendNotification(title, platform, platformUrl);
+    await this.telegramService.sendNotification(
+      title,
+      platform,
+      description,
+      platformUrl,
+    );
 
     return {
       notification,

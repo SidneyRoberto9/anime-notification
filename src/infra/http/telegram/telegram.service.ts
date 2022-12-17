@@ -1,11 +1,10 @@
-import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
-import TelegramBot, { Message } from 'node-telegram-bot-api';
-
-import { ChatAlreadyExist } from '../../../app/use-cases/chat-already-exist/chat-already-exist';
-import { ListChat } from '../../../app/use-cases/list-chat/list-chat';
-import { NewChat } from '../../../app/use-cases/new-chat/new-chat';
-import { newNotification, welcome, welcomeAlreadyExist } from '../../../helpers/Message.data';
+import { ChatAlreadyExist } from "@app/use-cases/chat-already-exist/chat-already-exist";
+import { ListChat } from "@app/use-cases/list-chat/list-chat";
+import { NewChat } from "@app/use-cases/new-chat/new-chat";
+import { newNotification, welcome, welcomeAlreadyExist } from "@helpers/Message.data";
+import { HttpService } from "@nestjs/axios";
+import { Injectable } from "@nestjs/common";
+import TelegramBot, { Message } from "node-telegram-bot-api";
 
 const TOKEN: string = process.env.TELEGRAM_TOKEN as string;
 
@@ -31,6 +30,7 @@ export class TelegramService {
       this.sendNotification(
         match[1] as string,
         'Better Animes',
+        'Teste de notificação',
         'https://betteranimes.com.br',
       ),
     );
@@ -39,6 +39,7 @@ export class TelegramService {
   sendNotification = async (
     msg: string,
     platform: string,
+    description: string,
     platformUrl: string,
   ) => {
     if (!this.platformList.includes(platform)) {
@@ -53,7 +54,8 @@ export class TelegramService {
 
       listChat.forEach((chat) => {
         this.bot.sendPhoto(chat.telegramId, imagemUrl, {
-          caption: newNotification(animeData.title, platformUrl),
+          caption: newNotification(animeData.title, platformUrl, description),
+          parse_mode: 'Markdown',
         });
       });
     });

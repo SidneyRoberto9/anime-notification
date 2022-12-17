@@ -11,6 +11,7 @@ datasource db {
 model Notification {
   id          String   @id
   title       String
+  description String
   platform    String
   platformUrl String
   createdAt   DateTime @default(now())

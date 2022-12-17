@@ -4,5 +4,5 @@ export const welcome: string =
 export const welcomeAlreadyExist: string =
   'Calma.. Calma.. Estamos Fabricando as notificações.';
 
-export const newNotification = (name: string, link: string) =>
-  `Acabou de sair do forno!!\n➡️ ${name} \nAcesse o link para mais informações: ${link}`;
+export const newNotification = (name: string, link: string, ep: string) =>
+  `${name}\n\n${ep}\n\n${link}`;

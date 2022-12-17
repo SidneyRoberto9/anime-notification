@@ -1,4 +1,4 @@
-import { Notification } from './notification';
+import { Notification } from "./notification";
 
 describe('Notification', () => {
   it('should be able to create a notification', () => {
@@ -6,6 +6,7 @@ describe('Notification', () => {
       title:
         'Ore no Nounai Sentakushi ga, Gakuen Love Comedy wo Zenryoku de Jama Shiteiru',
       platform: 'animesonline.cc',
+      description: 'Episodio 01',
       platformUrl: 'https://animesonline.cc/tv/',
     });
 
@@ -17,6 +18,7 @@ describe('Notification', () => {
       new Notification({
         title: 'a',
         platform: 'animesonline.cc',
+        description: 'Episodio 01',
         platformUrl: 'https://animesonline.cc/tv/',
       });
     };
@@ -29,6 +31,7 @@ describe('Notification', () => {
       new Notification({
         title: 'a'.repeat(241),
         platform: 'animesonline.cc',
+        description: 'Episodio 01',
         platformUrl: 'https://animesonline.cc/tv/',
       });
     };
@@ -42,6 +45,7 @@ describe('Notification', () => {
         title:
           'Ore no Nounai Sentakushi ga, Gakuen Love Comedy wo Zenryoku de Jama Shiteiru',
         platform: 'animesonline.cc',
+        description: 'Episodio 01',
         platformUrl: 'animesonline.cc/tv/',
       });
     };

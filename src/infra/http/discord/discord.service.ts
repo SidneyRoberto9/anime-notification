@@ -1,8 +1,7 @@
+import { SendNotification } from "@app/use-cases/send-notification/send-notification";
+import { exampleEmbed } from "@helpers/Embed.data";
 import { Injectable } from "@nestjs/common";
-import { Client, GatewayIntentBits } from "discord.js";
-
-import { SendNotification } from "../../../app/use-cases/send-notification/send-notification";
-import { exampleEmbed } from "../../../helpers/Embed.data";
+import { Client, GatewayIntentBits, Message } from "discord.js";
 
 const discord_token: string = process.env.DISCORD_TOKEN as string;
 
@@ -30,27 +29,31 @@ export class DiscordService {
     );
   }
 
-  messageCaptureForNotification = async (message) => {
-    if (message.content === '#teste') {
-      message.reply({
-        embeds: [exampleEmbed],
-      });
-    } else {
-      const firstEmbed = message.embeds[0];
-      const animeUrl = firstEmbed.data.author.url;
+  messageCaptureForNotification = async (message: Message) => {
+    if (
+      (message.author.id === '1052754073461473350' &&
+        message.author.username === 'Animes House #📰┃lançamentos') ||
+      message.author.id === '1052752471853899786'
+    ) {
+      const embed = message.embeds[0].data;
+      const animeName = embed.title;
+      const animeDescription = embed.description;
+      const animeUrl = embed.author?.url ?? 'https://animeshouse.net/';
 
-      const findAnimeItem = firstEmbed.data.fields.filter(
-        (item) =>
-          item.value.includes('Episódio') || item.name.includes('Episódio​'),
-      )[0];
-
-      if (animeUrl && findAnimeItem) {
+      if (animeUrl && animeName && animeDescription) {
         await this.sendNotification.execute({
-          title: findAnimeItem.name,
+          title: animeName,
+          description: animeDescription,
           platform: 'Animes House',
           platformUrl: animeUrl,
         });
       }
+    }
+
+    if (message.content === '#teste') {
+      message.reply({
+        embeds: [exampleEmbed],
+      });
     }
   };
 }

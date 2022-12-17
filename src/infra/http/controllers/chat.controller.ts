@@ -1,7 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { NewChat } from "@app/use-cases/new-chat/new-chat";
+import { Body, Controller, Post } from "@nestjs/common";
 
-import { CreateChatBody } from '../dtos/create-chat-body';
-import { NewChat } from './../../../app/use-cases/new-chat/new-chat';
+import { CreateChatBody } from "../dtos/create-chat-body";
 
 @Controller('api/chat')
 export class ChatController {

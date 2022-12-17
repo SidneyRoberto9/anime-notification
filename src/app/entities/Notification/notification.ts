@@ -1,10 +1,10 @@
-import { randomUUID } from 'node:crypto';
-
-import { Replace } from '../../../helpers/Replace';
+import { Replace } from "@helpers/Replace";
+import { randomUUID } from "node:crypto";
 
 export interface NotificationProps {
   title: string;
   platform: string;
+  description: string;
   platformUrl: string;
   createdAt: Date;
 }
@@ -56,6 +56,14 @@ export class Notification {
 
   public set title(title: string) {
     this.props.title = title;
+  }
+
+  public get description(): string {
+    return this.props.description;
+  }
+
+  public set description(description: string) {
+    this.props.description = description;
   }
 
   public get platform(): string {

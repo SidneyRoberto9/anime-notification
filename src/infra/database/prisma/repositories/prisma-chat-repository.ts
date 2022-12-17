@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Chat } from "@app/entities/Chat/chat";
+import { ChatRepository } from "@app/repositories/chat-repository";
+import { Injectable } from "@nestjs/common";
 
-import { Chat } from '../../../../app/entities/Chat/chat';
-import { ChatRepository } from '../../../../app/repositories/chat-repository';
-import { PrismaService } from '../prisma.service';
+import { PrismaService } from "../prisma.service";
 
 @Injectable()
 export class PrismaChatRepository implements ChatRepository {
