@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Injectable } from "@nestjs/common";
+import { Client, GatewayIntentBits } from "discord.js";
 
-import { SendNotification } from '../../../app/use-cases/send-notification/send-notification';
-import { exampleEmbed } from '../../../helpers/Embed.data';
+import { SendNotification } from "../../../app/use-cases/send-notification/send-notification";
+import { exampleEmbed } from "../../../helpers/Embed.data";
 
 const discord_token: string = process.env.DISCORD_TOKEN as string;
 
@@ -31,7 +31,11 @@ export class DiscordService {
   }
 
   messageCaptureForNotification = async (message) => {
-    if (message.author.bot) {
+    if (message.content === '#teste') {
+      message.reply({
+        embeds: [exampleEmbed],
+      });
+    } else {
       const firstEmbed = message.embeds[0];
       const animeUrl = firstEmbed.data.author.url;
 
@@ -47,12 +51,6 @@ export class DiscordService {
           platformUrl: animeUrl,
         });
       }
-    }
-
-    if (message.content === '#teste') {
-      message.reply({
-        embeds: [exampleEmbed],
-      });
     }
   };
 }
